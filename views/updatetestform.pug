@@ -12,9 +12,12 @@ html
     div
         include profile.pug
     blockquote.blockquote.text-center
-            h1.mb-0
+            //- h1.mb-0
                 |Subject :  #{subject.name}
     #quiz.container(style='margin-top:10px')
+        button.btn.btn-primary(onclick='history.back()')
+                i.fa.fa-plus
+                span Back
         form(action="/updatetest/"+test.id,method="post" class="form-horizontal" id="testform" name="testform")
             .form-group(style="margin-top:20px;")
                 label(for="testname") Test Name

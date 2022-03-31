@@ -15,6 +15,9 @@ html
         div 
             include profile.pug
         .container(style='margin-top:20px')
+            button.btn.btn-primary(onclick='history.back()')
+                i.fa.fa-plus
+                span Back
             .row
                 each item,index in subjects
                     .col-sm-3(style='margin-top:20px')

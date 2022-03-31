@@ -16,16 +16,19 @@ html
             include navbar.pug
         
         .container(style='margin-top:20px')
-                    .row
-                        each item,index in subs
-                            .col-sm-3(style='margin-top:20px')
-                                .card(style="padding:10px;color:black;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);")
-                                    a(href='/responses/tests/'+item.id, style="cursor:'pointer'; text-decoration:'none';color:black;")
-                                        img.card-img-top.img-fluid(src=item.imgsrc  alt=item.imgsrc style='width:100%;height: 15vw;object-fit: cover;')
-                                    .card-block
-                                        a(href='/responses/tests/'+item.id, style="cursor:'pointer'; text-decoration:'none';")
-                                            h4.card-title #{item.name}
-                                    a.btn.btn-secondary(href='/responses/tests/'+item.id) OpenSubject  
+            button.btn.btn-primary(onclick='history.back()')
+                i.fa.fa-plus
+                span Back
+            .row
+                each item,index in subs
+                    .col-sm-3(style='margin-top:20px')
+                        .card(style="padding:10px;color:black;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);")
+                            a(href='/responses/tests/'+item.id, style="cursor:'pointer'; text-decoration:'none';color:black;")
+                                img.card-img-top.img-fluid(src=item.imgsrc  alt=item.imgsrc style='width:100%;height: 15vw;object-fit: cover;')
+                            .card-block
+                                a(href='/responses/tests/'+item.id, style="cursor:'pointer'; text-decoration:'none';")
+                                    h4.card-title #{item.name}
+                            a.btn.btn-secondary(href='/responses/tests/'+item.id) OpenSubject  
         .container(style='margin-top:20px')
                     .row
                         each item,index in tests
