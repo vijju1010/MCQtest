@@ -1,0 +1,47 @@
+html 
+    head 
+        title Update Tests
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css')
+        script(src='https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js')
+        script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js')
+        script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')
+        
+    body
+        div 
+            include profile.pug
+        .container(style='margin-top:20px')
+            .row
+                each item,index in subjects
+                    .col-sm-3(style='margin-top:20px')
+                        .card(style="padding:10px;color:black;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);")
+                            a(href='/updatetest/'+item.id, style="cursor:'pointer'; text-decoration:'none';color:black;")
+                                img.card-img-top.img-fluid(src=item.imgsrc  alt=item.imgsrc style='width:100%;height: 15vw;object-fit: cover;')
+                            .card-block
+                                a(href='/updatetest/'+item.id, style="cursor:'pointer'; text-decoration:'none';")
+                                    h4.card-title #{item.name}
+                            a.btn.btn-secondary(href='/updatetest/'+item.id) Update Tests in #{item.name}  
+                if subjects.length!=0
+                    .col-sm-3(style='margin-top:20px')
+                        .card(style="padding:10px;color:black;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);")
+                            a.btn.btn-secondary.text-center(href='/addsubject') AddSubject  
+
+        .container(style='margin-top:20px')
+            .row
+                each item,index in tests
+                    .col-sm-3(style='margin-top:20px')
+                        .card(style="padding:10px;color:black;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);")
+                            .card-block
+                                a(href='/updatetestsubject/'+item.id, style="cursor:'pointer'; text-decoration:'none';")
+                                    h4.card-title #{item.name}
+                            a.btn.btn-secondary(href='/updatetestsubject/'+item.id) Update Test 
+                if tests.length!=0
+                    .col-sm-3(style='margin-top:20px')
+                        .card(style="padding:10px;color:black;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);")
+                            a.btn.btn-secondary.text-center(href='/addtest/'+tests[0].subjectId) Add Test
+        div 
+            h1 #{message}

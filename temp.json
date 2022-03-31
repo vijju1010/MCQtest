@@ -1,0 +1,86 @@
+{
+    "res": [
+        {
+            "testname": "test1",
+            "attempts": "1",
+            "testid": "1"
+        }
+    ],
+    "Users": [
+        {
+            "id": 1,
+            "name": "John",
+            "pass": "123"
+        },
+        {
+            "id": 2,
+            "name": "Jane",
+            "pass": "123"
+        }
+    ],
+    "Results": [
+        {
+            "testid": 1,
+            "userid": 1,
+            "questions": [
+                {
+                    "question": "What is the capital of India?",
+                    "options": ["Delhi", "Mumbai", "Chennai", "Kolkata"],
+                    "answer": "Delhi"
+                },
+                {
+                    "question": "What is the capital of USA?",
+                    "options": [
+                        "Washington",
+                        "New York",
+                        "Los Angeles",
+                        "Chicago"
+                    ],
+                    "answer": "Washington"
+                }
+            ]
+        },
+        {
+            "testid": 2,
+            "userid": 1,
+            "score": 20
+        }
+    ],
+    "Subjects": [
+        {
+            "id": 1,
+            "subname": "General Knowledge"
+        },
+        {
+            "id": 2,
+            "subname": "English"
+        }
+    ],
+    "Tests": [
+        {
+            "testid": 1,
+            "subid": 1
+        },
+        {
+            "testid": 2,
+            "subid": 1
+        },
+        {
+            "testid": 3,
+            "subid": 2
+        },
+        {
+            "testid": 4,
+            "subid": 2
+        }
+    ],
+    "Questions": [
+        {
+            "questionid": 1,
+            "testid": 1,
+            "question": "What is the capital of India?",
+            "options": ["New Delhi", "Mumbai", "Chennai", "Kolkata"],
+            "answer": "New Delhi"
+        }
+    ]
+}

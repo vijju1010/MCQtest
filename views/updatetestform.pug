@@ -1,0 +1,44 @@
+html
+  head
+    title test
+    link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css', rel='stylesheet')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js')
+    script(src='//code.jquery.com/jquery-1.11.1.min.js')
+    // ---- Include the above in your HEAD tag --------
+    link(rel='stylesheet', href='//fontawesome.io/assets/font-awesome/css/font-awesome.css')
+    script 
+        include script.js
+  body
+    div
+        include profile.pug
+    blockquote.blockquote.text-center
+            h1.mb-0
+                |Subject :  #{subject.name}
+    #quiz.container(style='margin-top:10px')
+        form(action="/updatetest/"+test.id,method="post" class="form-horizontal" id="testform" name="testform")
+            .form-group(style="margin-top:20px;")
+                label(for="testname") Test Name
+                input#testname.form-control(type='text', name="testname", placeholder='Enter Test Name' style='width:50%' value=test.name)
+            div#questions
+                each item,index in questions
+                        fieldset(id=index class='question')
+                            legend Question #{index+1}
+                                button.btn.btn-primary(type='button' onclick='removeQuestion('+index+')' style="margin-right:20px;float:right") Remove question
+                                //- .btn.btn-primary(type='button', onclick="removeQuestion('#{this.id}')") Remove Question
+                                .form-group 
+                                    input.form-control(type='text', name=index, placeholder='Enter Question' style='width:98%' value=item.question)
+                                .form-group
+                                    .form-group.col-md-6.mr-3
+                                            input.form-control(type='text', placeholder='Option1', name=index, required='required' value=item.options[0])
+                                    .form-group.col-md-6.mr-3
+                                            input.form-control(type='text', placeholder='Option2', name=index, required='required' value=item.options[1])
+                                    .form-group.col-md-6.mr-3
+                                            input.form-control(type='text', placeholder='Option3', name=index, required='required' value=item.options[2])
+                                    .form-group.col-md-6.mr-3
+                                            input.form-control(type='text', placeholder='Option4', name=index, required='required' value=item.options[3])
+                                    .form-group.col-md-6.mr-3(style='margin-left:20%;')
+                                        input.form-control(type='text', placeholder='Answer', name=index, required='required' value=item.answer)
+                                    .form-group.col-md-6.mr-3
+                                            input.form-control(type='number', placeholder='Marks', name=index, required='required' value=item.marks)
+            button.btn.btn-primary(type='button' onclick='addQuestioninupdateform()' style="margin-right:20px") Add question
+            button.btn.btn-primary(type='submit') Update Quiz

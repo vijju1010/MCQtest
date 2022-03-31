@@ -1,0 +1,124 @@
+html
+  head
+    title test
+    link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css', rel='stylesheet')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js')
+    script(src='//code.jquery.com/jquery-1.11.1.min.js')
+    // ---- Include the above in your HEAD tag --------
+    link(rel='stylesheet', href='//fontawesome.io/assets/font-awesome/css/font-awesome.css')
+    script 
+        include script.js
+  body
+    #quiz.container(style='margin-top:200px')
+        form(action="/genscore", method="post") 
+            //- input(type="hidden", name="testId", value=questions[0].testId)
+            each item,index in result.questions
+                fieldset(disabled) 
+                    .row
+                        .col-md-8.col-md-offset-2
+                        .panel.panel-default
+                                .panel-heading
+                                    h3.panel-title.text-danger
+                                        i.fa.fa-question-circle.fa-3x
+                                        |  #{index+1}. #{item.question} &#xFF1F;
+                                .panel-body.two-col
+                                    .row
+                                        .col-md-4
+                                            .frb.frb-danger.margin-bottom-none
+                                                if(item.options[0] == item.selected)
+                                                    input#radio-button-5(type='radio', name=item.id, value=item.options[0], checked)
+                                                    if(item.options[0]==item.answer)
+                                                        label(for='radio-button-5') &#9989;
+                                                        span.frb-title #{item.options[0]} 
+                                                        span.frb-description
+                                                    else
+                                                        label(for='radio-button-5') &#10060;
+                                                        span.frb-title #{item.options[0]} 
+                                                        span.frb-description
+                                                else
+                                                    input#radio-button-5(type='radio', name=item.id, value=item.options[0])
+                                                    if(item.options[0]==item.answer)
+                                                        label(for='radio-button-5') &#9989;
+                                                        span.frb-title #{item.options[0]} 
+                                                        span.frb-description
+                                                    else 
+                                                        label(for='radio-button-5')
+                                                        span.frb-title #{item.options[0]} 
+                                                        span.frb-description
+                                        .col-md-4
+                                            .frb.frb-danger.margin-bottom-none
+                                                if(item.options[1] == item.selected)
+                                                    input#radio-button-5(type='radio', name=item.id, value=item.options[1], checked)
+                                                    if(item.options[1]==item.answer)
+                                                        label(for='radio-button-5') &#9989;
+                                                        span.frb-title #{item.options[1]} 
+                                                        span.frb-description
+                                                    else
+                                                        label(for='radio-button-5') &#10060;
+                                                        span.frb-title #{item.options[1]} 
+                                                        span.frb-description
+                                                else
+                                                    input#radio-button-5(type='radio', name=item.id, value=item.options[1])
+                                                    if(item.options[1]==item.answer)
+                                                        label(for='radio-button-5') &#9989;
+                                                        span.frb-title #{item.options[1]} 
+                                                        span.frb-description
+                                                    else 
+                                                        label(for='radio-button-5')
+                                                        span.frb-title #{item.options[1]} 
+                                                        span.frb-description
+                                    .row
+                                        .col-md-4
+                                            .frb.frb-danger.margin-bottom-none
+                                                if(item.options[2] == item.selected)
+                                                    input#radio-button-5(type='radio', name=item.id, value=item.options[2], checked)
+                                                    if(item.options[2]==item.answer)
+                                                        label(for='radio-button-5') &#9989;
+                                                        span.frb-title #{item.options[2]} 
+                                                        span.frb-description
+                                                    else
+                                                        label(for='radio-button-5') &#10060;
+                                                        span.frb-title #{item.options[2]} 
+                                                        span.frb-description
+                                                else
+                                                    input#radio-button-5(type='radio', name=item.id, value=item.options[2])
+                                                    if(item.options[2]==item.answer)
+                                                        label(for='radio-button-5') &#9989;
+                                                        span.frb-title #{item.options[2]} 
+                                                        span.frb-description
+                                                    else 
+                                                        label(for='radio-button-5')
+                                                        span.frb-title #{item.options[2]} 
+                                                        span.frb-description
+                                        .col-md-4
+                                            .frb.frb-danger.margin-bottom-none
+                                                if(item.options[3] == item.selected)
+                                                    input#radio-button-5(type='radio', name=item.id, value=item.options[3], checked)
+                                                    if(item.options[3]==item.answer)
+                                                        label(for='radio-button-5') &#9989;
+                                                        span.frb-title #{item.options[3]} 
+                                                        span.frb-description
+                                                    else
+                                                        label(for='radio-button-5') &#10060;
+                                                        span.frb-title #{item.options[3]} 
+                                                        span.frb-description
+                                                else
+                                                    input#radio-button-5(type='radio', name=item.id, value=item.options[3])
+                                                    if(item.options[3]==item.answer)
+                                                        label(for='radio-button-5') &#9989;
+                                                        span.frb-title #{item.options[3]} 
+                                                        span.frb-description
+                                                    else 
+                                                        label(for='radio-button-5')
+                                                        span.frb-title #{item.options[3]} 
+                                                        span.frb-description
+                                .panel-footer
+                                    .row
+                                        .col-md-4 
+                                            | Answer : #{item.answer}
+                                        .col-md-5
+                                            | Selected : #{item.selected}
+                                        .col-md-3
+                                            | Marks : #{item.marks}
+        a.btn.btn-primary.btn-lg(href='/home') Back to Home
+        h1 Score : #{result.score}

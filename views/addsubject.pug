@@ -1,0 +1,26 @@
+html 
+    head 
+        title Add Subject
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css')
+        script(src='https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js')
+        script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js')
+        script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')    
+    body
+        include profile.pug
+        .col.col-md-5.col-lg-10.col-xl-100.align-items-center(style='margin-left:10%;margin-top:10%')
+            form(action='/addsubject', method='post' enctype='multipart/form-data')
+                .form-row
+                    .form-group.col-md-4
+                        label(for='subjectName') Subject Name
+                        input#exampleInputEmail1.form-control(type='test', placeholder='Enter Subject Name' name='subjectName')
+                .form-group.col-md-2
+                    label(for='fileinput') Upload An Image for Subject: 
+                    input#fileinput.form-control-file(type='file' name="subImg")
+                .form-row
+                    .form-group.col-md-2
+                        button.btn.btn-primary(type='submit') Submit
