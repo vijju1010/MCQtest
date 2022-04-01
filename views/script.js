@@ -79,3 +79,9 @@ requestAccess = () => {
         },
     });
 };
+copyUrl = () => {
+    var url = window.location.href;
+    console.log(url);
+    navigator.clipboard.writeText(url);
+    alert('Test Url copied to Clipboard');
+};

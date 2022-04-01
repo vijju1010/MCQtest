@@ -198,6 +198,57 @@ app.get('/updatetestsubject/:testID', (req, res) => {
         res.redirect('/login');
     }
 });
+// app.get('/responses', (req, res) => {
+//     if (req.cookies.loggedUser && req.cookies.password) {
+//         var resultpjson = [];
+//         User.findOne({ name: req.cookies.loggedUser }, (err, user) => {
+//             console.log(user, 'user');
+//             Result.find({ userId: user._id }, (err, results) => {
+//                 console.log(results, 'results');
+//                 //     "subjectname": "subname",
+//                 // "testname": "test1",
+//                 // "date": "date",
+//                 // "score": "10",
+//                 // "resultId": "1"
+
+//                 results.forEach((result) => {
+//                     var attempt = {};
+//                     attempt.resultId = result._id;
+//                     Test.findById(result.testId, (err, test) => {
+//                         console.log(test, 'test');
+//                         if (err) {
+//                             console.log(err);
+//                         } else {
+//                             attempt.testname = test.name;
+//                             Subject.findById(test.subjectId, (err, subject) => {
+//                                 console.log(subject, 'subject');
+//                                 if (err) {
+//                                     console.log(err);
+//                                 } else {
+//                                     attempt.subjectname = subject.name;
+//                                     attempt.date = result.date;
+//                                     attempt.score = result.score;
+//                                     resultpjson.push(attempt);
+//                                     console.log(resultpjson, 'resultpjson');
+//                                     // res.render('responses', {
+//                                     //     user: user,
+//                                     //     results: resultpjson,
+//                                     // });
+//                                 }
+//                             }).catch((err) => {
+//                                 console.log(err);
+//                             });
+//                         }
+//                     });
+//                 });
+
+//             });
+//         });
+//         res.send(resultpjson);
+//     } else {
+//         res.redirect('/login');
+//     }
+// });
 app.get('/responses', (req, res) => {
     if (req.cookies.loggedUser && req.cookies.password) {
         Subject.find({}, (err, subjects) => {
@@ -469,18 +520,23 @@ app.get('/home', (req, res, isLoggedin) => {
 
 app.get('/subject/:id', (req, res) => {
     console.log(req.params.id);
-    Test.find({ subjectId: req.params.id }, (err, tests) => {
-        // find all tests of a subject
-        console.log(tests, 'tests');
-        if (tests.length === 0) {
-            res.render('tests', {
-                tests: tests,
-                message: 'No tests available',
-            });
-        } else {
-            res.render('tests', { tests: tests });
-        }
-    });
+    if (req.cookies.loggedUser && req.cookies.password) {
+        // check if user is logged in
+        Test.find({ subjectId: req.params.id }, (err, tests) => {
+            // find all tests of a subject
+            console.log(tests, 'tests');
+            if (tests.length === 0) {
+                res.render('tests', {
+                    tests: tests,
+                    message: 'No tests available',
+                });
+            } else {
+                res.render('tests', { tests: tests });
+            }
+        });
+    } else {
+        res.render('login', { message: 'login required' });
+    }
 });
 
 app.get('/test/:id', (req, res) => {
@@ -502,48 +558,52 @@ app.post('/genscore', (req, res) => {
         questionids.push(key);
     }
     if (questionids.length != 0) {
-        Question.find(
-            {
-                _id: { $in: questionids },
-            },
-            (err, questions) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    for (var i = 0; i < questions.length; i++) {
-                        if (questions[i].answer === answers[questions[i]._id]) {
-                            score += questions[i].marks;
-                            var correctquestion = questions[i];
-                            correctquestion.selected = questions[i].answer;
-                            resquestions.push(correctquestion);
-                        } else {
-                            var wrongquestion = questions[i];
-                            wrongquestion.selected = answers[questions[i]._id];
-                            console.log(wrongquestion, 'wrongquestion');
-                            resquestions.push(wrongquestion);
+        User.findOne({ name: req.cookies.loggedUser }, (err, user) => {
+            Question.find(
+                {
+                    _id: { $in: questionids },
+                },
+                (err, questions) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        for (var i = 0; i < questions.length; i++) {
+                            if (
+                                questions[i].answer ===
+                                answers[questions[i]._id]
+                            ) {
+                                score += questions[i].marks;
+                                var correctquestion = questions[i];
+                                correctquestion.selected = questions[i].answer;
+                                resquestions.push(correctquestion);
+                            } else {
+                                var wrongquestion = questions[i];
+                                wrongquestion.selected =
+                                    answers[questions[i]._id];
+                                console.log(wrongquestion, 'wrongquestion');
+                                resquestions.push(wrongquestion);
+                            }
                         }
+                        var newResult = new Result({
+                            testId: new mongoose.Types.ObjectId(
+                                questions[0].testId
+                            ),
+                            userId: new mongoose.Types.ObjectId(user.id),
+                            questions: resquestions,
+                            score: score,
+                        });
+                        newResult.save((err, result) => {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                // res.send({ score: score });
+                                res.redirect('/results/' + result._id);
+                            }
+                        });
                     }
-                    var newResult = new Result({
-                        testId: new mongoose.Types.ObjectId(
-                            questions[0].testId
-                        ),
-                        userId: new mongoose.Types.ObjectId(
-                            '6243fcc8e4b6b5a4e7edaa9d'
-                        ),
-                        questions: resquestions,
-                        score: score,
-                    });
-                    newResult.save((err, result) => {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            // res.send({ score: score });
-                            res.redirect('/results/' + result._id);
-                        }
-                    });
                 }
-            }
-        );
+            );
+        });
     } else {
         res.send({
             score: score,

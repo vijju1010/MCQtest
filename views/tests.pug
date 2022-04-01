@@ -10,6 +10,8 @@ html
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')
+        script 
+            include script.js
         
     body
         div 
@@ -29,5 +31,8 @@ html
                                 a(href='/test/'+item.id, style="cursor:'pointer'; text-decoration:'none';")
                                     h4.card-title #{item.name}
                             a.btn.btn-secondary(href='/test/'+item.id) OpenTest  
+                            
+                            button.btn.btn-link(onclick="copyUrl()") &#xF290; Copy Test 
+
         div 
             h1 #{message}
