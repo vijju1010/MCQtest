@@ -43,8 +43,12 @@ html
                                     h4.card-title #{item.name}
                             a.btn.btn-secondary(href='/updatetestsubject/'+item.id) Update Test 
                 if tests.length!=0
-                    .col-sm-3(style='margin-top:20px')
+                    //- .col-sm-3(style='margin-top:20px')
                         .card(style="padding:10px;color:black;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);")
                             a.btn.btn-secondary.text-center(href='/addtest/'+tests[0].subjectId) Add Test
+                if(page=="tests")
+                    .col-sm-3(style='margin-top:20px')
+                        .card(style="padding:10px;color:black;box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);")
+                            a.btn.btn-secondary.text-center(href='/addtest/'+subject) Add Test
         div 
             h1 #{message}
